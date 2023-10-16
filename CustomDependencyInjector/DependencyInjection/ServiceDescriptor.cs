@@ -9,7 +9,9 @@ namespace CustomDependencyInjector.DependencyInjection
     internal class ServiceDescriptor
     {
         public Type ServiceType { get; }
-        public object Implementation { get; }
+        public Type ImplementationType { get; }
+
+        public object Implementation { get; set; }
 
         public ServiceLifetime Lifetime { get; }
 
@@ -23,7 +25,13 @@ namespace CustomDependencyInjector.DependencyInjection
         public ServiceDescriptor(Type serviceType, ServiceLifetime lifetime)
         {
             ServiceType = serviceType;
-            Implementation = Activator.CreateInstance(serviceType);
+            Lifetime = lifetime;
+        }
+
+        public ServiceDescriptor(Type serviceType, Type implementationType, ServiceLifetime lifetime)
+        {
+            ServiceType = serviceType;
+            ImplementationType = implementationType;
             Lifetime = lifetime;
         }
 

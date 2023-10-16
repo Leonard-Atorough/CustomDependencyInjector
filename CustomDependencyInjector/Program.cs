@@ -9,14 +9,16 @@ internal class Program
 
         services.RegisterSingleton<RandomGuidGenerator>();
         //services.RegisterSingleton(new RandomGuidGenerator());
+        services.RegisterTransient<ISomeService, SomeServiceOne>();
+        services.RegisterSingleton<IRandomGuidProvider, RandomGuidProvider>();
 
         var container = services.GenerateContainer();
 
-        var serviceFirst = container.GetService<RandomGuidGenerator>();
-        var serviceSecond = container.GetService<RandomGuidGenerator>();
+        var serviceFirst = container.GetService<ISomeService>();
+        var serviceSecond = container.GetService<ISomeService>();
 
 
-        Console.WriteLine(serviceFirst.RandomGuid);
-        Console.WriteLine(serviceSecond.RandomGuid);
+        serviceFirst.PrintSomething();
+        serviceSecond.PrintSomething();
     }
 }
